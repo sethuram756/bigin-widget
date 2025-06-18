@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Zoho Bigin Widget</title>
+  <script src="https://js.zohocdn.com/biginsdk/dist/js/bigin-widget-sdk.js"></script>
+</head>
+<body>
+  <h2>Zoho Bigin + Node Backend</h2>
+  <div id="response">Loading...</div>
+
+ <script>
+   window.addEventListener("load",
+    function () {
+          ZOHO.embeddedApp.on("PageLoad",
+           function () {
+                  ZOHO.Bigin.API.getAllRecords({ Entity: "Products" })
+                          .then(function (response) {
+                                      const outputDiv = document.getElementById("response");
+                                                outputDiv.innerText = JSON.stringify(response.data, null, 2);
+                                                      })
+                                                              .catch(function (err) {
+                                                                          document.getElementById("response").innerText = "Error: " + err.message;
+                                                                                });
+                                                                                  });
+                                                                                      ZOHO.embeddedApp.init();  });
+
+ </script>
+</body>
+</html>
