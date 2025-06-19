@@ -17,7 +17,6 @@ ZBWidget.init().then(() => {
       const cleanData = (data.data || []).map(product => ({
         "Product Name": product.Product_Name || "N/A",
         "Category": product.Product_Category || "N/A",
-        "Price": product.Unit_Price ?? 0
       }));
 
       ZBWidget.set({
