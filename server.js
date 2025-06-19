@@ -39,7 +39,6 @@ app.get('/products', async (req, res) => {
   if (!accessToken) {
     await refreshAccessToken();
   }
-_
   try {
     const response = await axios.get('https://www.zohoapis.com/bigin/v2/Products?fields=Product_Category,Product_Name', {
       headers: {
