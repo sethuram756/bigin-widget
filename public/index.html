@@ -9,7 +9,7 @@
   <div id="status">Loading...</div>
 
   <script>
-    ZBWidget.init().then(() => {
+    ZOHO.embeddedApp.init().then(() => {
       fetch('/products')
         .then(res => res.json())
         .then(data => {
