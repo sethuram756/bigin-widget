@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 async function refreshAccessToken() {
   try {
-    const res = await axios.post('https://accounts.zoho.in/oauth/v2/token', null, {
+    const res = await axios.post('https://accounts.zoho.com/oauth/v2/token', null, {
       params: {
         refresh_token: process.env.ZOHO_REFRESH_TOKEN,
         client_id: process.env.ZOHO_CLIENT_ID,
@@ -41,7 +41,7 @@ app.get('/products', async (req, res) => {
   }
 
   try {
-    const response = await axios.get('https://www.zohoapis.in/bigin/v2/Products', {
+    const response = await axios.get('https://www.zohoapis.com/bigin/v2/Products', {
       headers: {
         Authorization: `Zoho-oauthtoken ${accessToken}`
       }
@@ -52,7 +52,7 @@ app.get('/products', async (req, res) => {
       console.log('🔄 Token expired, refreshing...');
       await refreshAccessToken();
       try {
-        const retryResponse = await axios.get('https://www.zohoapis.in/bigin/v2/Products', {
+        const retryResponse = await axios.get('https://www.zohoapis.com/bigin/v2/Products', {
           headers: {
             Authorization: `Zoho-oauthtoken ${accessToken}`
           }
