@@ -1,29 +1,21 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Bigin Products</title>
-</head>
-<body>
-  <h1>Zoho Bigin Products</h1>
-  <ul id="product-list">Loading products...</ul>
-
-  <script>
+<script src="https://js.zohocdn.com/biginsdk/dist/js/bigin-widget-sdk.js"></script>
+<script>
+  ZBWidget.init().then(() => {
     fetch('/products')
       .then(res => res.json())
       .then(data => {
-        const list = document.getElementById('product-list');
-        list.innerHTML = '';
-        (data.data || []).forEach(product => {
-          const li = document.createElement('li');
-          li.textContent = `${product.Product_Name} - ₹${product.Unit_Price}`;
-          list.appendChild(li);
-        });
+        if (data.data && Array.isArray(data.data)) {
+          ZBWidget.set({
+            type: 'list',
+            data: data.data.map(product => ({
+              name: product.Product_Name,
+              price: product.Unit_Price
+            }))
+          });
+        }
       })
       .catch(err => {
-        document.getElementById('product-list').textContent = 'Failed to load products.';
-        console.error(err);
+        console.error('Failed to load products:', err);
       });
-  </script>
-</body>
-</html>
+  });
+</script>
