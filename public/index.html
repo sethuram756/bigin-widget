@@ -8,29 +8,27 @@
   <h2>Zoho Bigin Products</h2>
   <div id="status">Loading...</div>
 
-  <script>
-    ZOHO.embeddedApp.init().then(() => {
-      fetch('/products')
-        .then(res => res.json())
-        .then(data => {
-          const cleanData = (data.data || []).map(p => ({
-            "Product Name": p.Product_Name || "N/A",
-            "Category": p.Product_Category || "Uncategorized",
-            "Price": p.Unit_Price ?? "0"
-          }));
+<script src="https://js.zohocdn.com/biginsdk/dist/js/bigin-widget-sdk.js"></script>
+<script>
+ZBWidget.init().then(() => {
+  fetch('/products')
+    .then(res => res.json())
+    .then(data => {
+      const cleanData = (data.data || []).map(product => ({
+        "Product Name": product.Product_Name || "N/A",
+        "Category": product.Product_Category || "N/A",
+        "Price": product.Unit_Price ?? 0
+      }));
 
-          ZBWidget.set({
-            type: "list",
-            data: cleanData
-          });
-
-          document.getElementById("status").innerText = "Products loaded!";
-        })
-        .catch(err => {
-          document.getElementById("status").innerText = "Failed to load products.";
-          console.error(err);
-        });
+      ZBWidget.set({
+        type: "list",
+        data: cleanData
+      });
+    })
+    .catch(err => {
+      console.error("Widget error:", err);
     });
-  </script>
+});
+</script>
 </body>
 </html>
