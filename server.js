@@ -51,7 +51,7 @@ app.get('/products', async (req, res) => {
       console.log('🔄 Token expired, refreshing...');
       await refreshAccessToken();
       try {
-        const retryResponse = await axios.get('https://www.zohoapis.com/bigin/v2/Products', {
+        const retryResponse = await axios.get('https://www.zohoapis.com/bigin/v2/Products?fields=Product_Category,Product_Name', {
           headers: {
             Authorization: `Zoho-oauthtoken ${accessToken}`
           }
