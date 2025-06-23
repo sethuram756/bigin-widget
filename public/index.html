@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+12<!DOCTYPE html>
 <html>
 <head>
   <title>Bigin Products</title>
@@ -9,7 +9,10 @@
   <div id="status">Loading...</div>
 
 <script>
-ZBWidget.init().then(() => {
+  ZOHO.embeddedApp.on("PageLoad",function(data)
+{
+		console.log(data);
+ZOHO.embeddedApp.init().then(() => {
   fetch('/products')
     .then(res => res.json())
     .then(data => {
@@ -26,6 +29,7 @@ ZBWidget.init().then(() => {
     .catch(err => {
       console.error("Widget error:", err);
     });
+});
 });
 </script>
 </body>
